@@ -1,6 +1,12 @@
 const ENDPOINT_URL = "https://retoolapi.dev/zu9TVE/jokes"
 
-export const getJokes = () =>{
+export const getJokes = () => {
+  try {
+    return fetch(ENDPOINT_URL)
+    
+  } catch (error) {
+    console.error(error);
+  }
 
 }
 
@@ -25,7 +31,13 @@ export const getJokesByFilter = (filter:any) =>{
 }
 
 
-export const getJokesByPaginate = (page:any) =>{
+export const getJokesByPaginate = (page:number, limit:number) =>{
+  const append = `?\_page=${page}&\_limit=${limit}`;
+  try {
+    return fetch(ENDPOINT_URL + append)
+  } catch (error) {
+    console.error(error);
+  }
 
 }
 
