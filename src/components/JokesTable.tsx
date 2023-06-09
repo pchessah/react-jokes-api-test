@@ -94,6 +94,10 @@ function JokesTable(props: Props) {
     navigate(`joke/${id}`);
   };
 
+  const goToCreateJoke = () => {
+    navigate(`joke/create`);
+  }
+
   const onChangeDateSort = () => {
     switch (sortByDate) {
       case "nosort":
@@ -141,6 +145,9 @@ function JokesTable(props: Props) {
 
   return (
     <>
+      <div className="action-row">
+        <button className="button-3" onClick={goToCreateJoke}>Create Joke</button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -186,7 +193,7 @@ function JokesTable(props: Props) {
       </table>
 
       <div className="action-row">
-        <button
+        <button className="button-8" role="button"
           onClick={() => changePageNumber("prev")}
           disabled={pageNumber === 1}
         >
@@ -201,13 +208,15 @@ function JokesTable(props: Props) {
           <option value="5">5</option>
           <option value="10">10</option>
         </select>
-        <button
+        <button className="button-8" role="button"
           disabled={jokes.length < pageSize}
           onClick={() => changePageNumber("next")}
         >
           Next
         </button>
       </div>
+
+    
     </>
   );
 }

@@ -18,7 +18,12 @@ const router = createBrowserRouter([
   {
     path:"joke/:jokeId",
     element: <SingleJoke />
+  },
+  {
+    path:"joke/create",
+    element: <SingleJoke />
   }
+
 
 ]);
 

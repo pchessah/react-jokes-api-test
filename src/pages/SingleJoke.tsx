@@ -10,7 +10,7 @@ function SingleJoke(props: Props) {
   const {} = props
   const { jokeId } = useParams();
 
-  const [joke ,setJoke] = useState<IJoke>({} as IJoke);
+  const [joke ,setJoke] = useState<IJoke>(null as any);
 
   const getSingleJokeDetails = () => {
     if(jokeId){
@@ -30,7 +30,7 @@ function SingleJoke(props: Props) {
     <div className='container'>
       <h1>{joke ? "Edit Joke" : "Create Joke"}</h1>
       <section className='joke-form-container'>
-        <JokesForm joke={joke} />
+        <JokesForm isUpdateMode={!!joke} joke={joke} />
       </section>
     </div>
     

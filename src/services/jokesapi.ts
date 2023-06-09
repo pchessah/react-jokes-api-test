@@ -10,7 +10,20 @@ export const getJokes = () => {
   }
 };
 
-export const postJokes = () => {};
+export const createNewJoke = (jokeDetails: IJoke) => {
+  debugger
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(jokeDetails),
+  };
+
+  try {
+    return fetch(`${ENDPOINT_URL}`, requestOptions);
+  } catch (error) {
+    console.error("There was an error!", error);
+  };
+};
 
 export const updateJoke = (jokeDetails: IJoke) => {
   const requestOptions = {
