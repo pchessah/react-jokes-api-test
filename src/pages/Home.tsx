@@ -1,4 +1,3 @@
-import React from "react";
 import JokesTable from "../components/JokesTable";
 
 interface Props {}

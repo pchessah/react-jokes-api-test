@@ -8,12 +8,18 @@ import './index.css';
 
 import reportWebVitals from './reportWebVitals';
 import Home from './pages/Home';
+import SingleJoke from './pages/SingleJoke';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
   },
+  {
+    path:"joke/:jokeId",
+    element: <SingleJoke />
+  }
+
 ]);
 
 

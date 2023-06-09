@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { getJokes, getJokesByPaginate } from "../services/jokesapi";
 import { IJoke } from "../interfaces/joke.interface";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 interface Props {}
 
 function JokesTable(props: Props) {
   const {} = props;
+  const navigate = useNavigate();
+
+  //State
   const [jokes, setJokes] = useState<IJoke[]>([]);
   const [pageSize, setPageSize] = useState(5);
   const [pageNumber, setPageNumber] = useState(1);
@@ -17,15 +21,16 @@ function JokesTable(props: Props) {
     "nosort"
   );
 
+  //Helper functions
   const getJokesBypagenumber = () => {
     getJokesByPaginate(pageNumber, pageSize)?.then(async (res) => {
-      const a = await res.json()
+      const a = await res.json();
       const converted = a.map((joke: IJoke) => {
         return {
           ...joke,
           CreatedAt: moment(joke.CreatedAt).format("DD MMM YY"),
         };
-      })
+      });
       // .filter((j:IJoke) => {
 
       //   //Remove values that do not have all properties
@@ -44,21 +49,21 @@ function JokesTable(props: Props) {
   const changePageNumber = (action: "prev" | "next") => {
     if (pageNumber === 1 && action === "prev") {
       return;
-    }
+    };
 
     if (jokes.length < pageSize && action === "next") {
       return;
-    }
+    };
 
     if (action === "next") {
       const newPageNumber = pageNumber + 1;
       setPageNumber(newPageNumber);
-    }
+    };
 
     if (action === "prev") {
       const newPageNumber = pageNumber - 1;
       setPageNumber(newPageNumber);
-    }
+    };
 
     setSortByViews("nosort");
   };
@@ -85,21 +90,24 @@ function JokesTable(props: Props) {
     }
   };
 
+  const goToJoke = (id: number) => {
+    navigate(`joke/${id}`);
+  };
+
   const onChangeDateSort = () => {
     switch (sortByDate) {
       case "nosort":
         setSortByDate("asc");
-        const ascending = jokes.sort(
-          (a, b) =>{
-            return moment(a.CreatedAt).valueOf() - moment(b.CreatedAt).valueOf()
-          }
-        );
+        const ascending = jokes.sort((a, b) => {
+          return moment(a.CreatedAt).valueOf() - moment(b.CreatedAt).valueOf();
+        });
         setJokes(ascending);
         break;
       case "asc":
         setSortByDate("desc");
         const descending = jokes.sort(
-          (a, b) => moment(b.CreatedAt).valueOf() - moment(a.CreatedAt).valueOf()
+          (a, b) =>
+            moment(b.CreatedAt).valueOf() - moment(a.CreatedAt).valueOf()
         );
         setJokes(descending);
         break;
@@ -113,19 +121,19 @@ function JokesTable(props: Props) {
     }
   };
 
-  const getViewsClass = (views:number) => {
-    if(views >=0 && views <= 25){
+  const getViewsClass = (views: number) => {
+    if (views >= 0 && views <= 25) {
       return "tomato";
-    } else if( views >=26 && views <=50){
+    } else if (views >= 26 && views <= 50) {
       return "orange";
-    } else if( views >=50 && views <= 75){
+    } else if (views >= 50 && views <= 75) {
       return "yellow";
-    } else if(views >= 76 && views <= 100){
+    } else if (views >= 76 && views <= 100) {
       return "green";
     } else {
       return "black";
     }
-  }
+  };
 
   useEffect(() => {
     getJokesBypagenumber();
@@ -165,11 +173,12 @@ function JokesTable(props: Props) {
             jokes.map((joke) => {
               return (
                 <tr key={joke.id}>
-                  <td>{joke.Title}</td>
+                  <td onClick={() => goToJoke(joke.id)} className="title">
+                    {joke.Title}
+                  </td>
                   <td>{joke.Author} </td>
                   <td>{joke.CreatedAt}</td>
-                  <td className={getViewsClass(joke.Views)}
-                  >{joke.Views}</td>
+                  <td className={getViewsClass(joke.Views)}>{joke.Views}</td>
                 </tr>
               );
             })}
@@ -181,8 +190,7 @@ function JokesTable(props: Props) {
           onClick={() => changePageNumber("prev")}
           disabled={pageNumber === 1}
         >
-          {" "}
-          Previous{" "}
+          Previous
         </button>
         <select
           onChange={changePageSize}
@@ -197,8 +205,7 @@ function JokesTable(props: Props) {
           disabled={jokes.length < pageSize}
           onClick={() => changePageNumber("next")}
         >
-          {" "}
-          Next{" "}
+          Next
         </button>
       </div>
     </>
