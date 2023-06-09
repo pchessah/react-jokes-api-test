@@ -11,7 +11,6 @@ export const getJokes = () => {
 };
 
 export const createNewJoke = (jokeDetails: IJoke) => {
-  debugger
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },

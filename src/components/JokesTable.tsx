@@ -3,6 +3,7 @@ import { getJokes, getJokesByPaginate } from "../services/jokesapi";
 import { IJoke } from "../interfaces/joke.interface";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { removeToken, tokenIsValid } from "../services/localStorage.api";
 
 interface Props {}
 
@@ -98,6 +99,15 @@ function JokesTable(props: Props) {
     navigate(`joke/create`);
   }
 
+  const logout = () => {
+    removeToken();
+    if(tokenIsValid()){
+      return;
+    } else {
+      navigate("/");  
+    };
+  };
+
   const onChangeDateSort = () => {
     switch (sortByDate) {
       case "nosort":
@@ -147,6 +157,8 @@ function JokesTable(props: Props) {
     <>
       <div className="action-row">
         <button className="button-3" onClick={goToCreateJoke}>Create Joke</button>
+        <button className="button-45" onClick={logout}>Logout</button>
+
       </div>
       <table>
         <thead>

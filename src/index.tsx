@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
@@ -9,10 +9,22 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Home from './pages/Home';
 import SingleJoke from './pages/SingleJoke';
+import Login from './pages/Login';
+
+export const useCheckAuthorization = (condition: boolean) => {
+  const [isConditionTrue, setIsConditionTrue] = useState(false);
+  useEffect(() => {
+    if (condition) {
+      setIsConditionTrue(true);
+    };
+  }, [condition]);
+
+  return isConditionTrue;
+};
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "all-jokes",
     element: <Home />,
   },
   {
@@ -22,6 +34,10 @@ const router = createBrowserRouter([
   {
     path:"joke/create",
     element: <SingleJoke />
+  },
+  {
+    path: "/",
+    element: <Login />
   }
 
 

@@ -59,7 +59,7 @@ function JokesForm(props: Props) {
     return functionToUse?.then((res) => {
       setisSaving(false);
       alert("Joke details saved");
-      navigate(`/`);
+      navigate(`/all-jokes`);
     });
   };
 
