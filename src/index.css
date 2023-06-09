@@ -67,7 +67,9 @@ table {
 }
 
 td, th {
-  border: 1px solid #dddddd;
+  border: none;
+  border-right: 1px solid #dddddd;
+
   text-align: left;
   padding: 8px;
 }
@@ -85,7 +87,6 @@ td, th {
   justify-content: space-between;
   padding: 20px 0;
 }
-
 
 .views-header span{
   margin-right: 3px;
