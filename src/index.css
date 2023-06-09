@@ -49,5 +49,21 @@ tr:hover {
 }
 
 .views-header span{
-  margin-right: 5px;
+  margin-right: 3px;
+}
+
+.tomato{
+  color: tomato;
+}
+
+.oragnge{
+  color: orange;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.green{
+  color: green;
 }

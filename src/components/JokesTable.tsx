@@ -19,13 +19,20 @@ function JokesTable(props: Props) {
 
   const getJokesBypagenumber = () => {
     getJokesByPaginate(pageNumber, pageSize)?.then(async (res) => {
-      const a = await res.json();
+      const a = await res.json()
       const converted = a.map((joke: IJoke) => {
         return {
           ...joke,
           CreatedAt: moment(joke.CreatedAt).format("DD MMM YY"),
         };
-      });
+      })
+      // .filter((j:IJoke) => {
+
+      //   //Remove values that do not have all properties
+      //   if(Object.values(j).length === 6 ){
+      //     return j
+      //   }
+      // });
       setJokes(converted);
     });
   };
@@ -106,6 +113,20 @@ function JokesTable(props: Props) {
     }
   };
 
+  const getViewsClass = (views:number) => {
+    if(views >=0 && views <= 25){
+      return "tomato";
+    } else if( views >=26 && views <=50){
+      return "orange";
+    } else if( views >=50 && views <= 75){
+      return "yellow";
+    } else if(views >= 76 && views <= 100){
+      return "green";
+    } else {
+      return "black";
+    }
+  }
+
   useEffect(() => {
     getJokesBypagenumber();
   }, [pageSize, pageNumber]);
@@ -147,7 +168,8 @@ function JokesTable(props: Props) {
                   <td>{joke.Title}</td>
                   <td>{joke.Author} </td>
                   <td>{joke.CreatedAt}</td>
-                  <td>{joke.Views}</td>
+                  <td className={getViewsClass(joke.Views)}
+                  >{joke.Views}</td>
                 </tr>
               );
             })}
