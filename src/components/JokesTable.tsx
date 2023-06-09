@@ -23,7 +23,7 @@ function JokesTable(props: Props) {
       const converted = a.map((joke: IJoke) => {
         return {
           ...joke,
-          CreatedAt: moment(joke.CreatedAt).format("Do MMM YY"),
+          CreatedAt: moment(joke.CreatedAt).format("DD MMM YY"),
         };
       });
       setJokes(converted);
@@ -83,16 +83,16 @@ function JokesTable(props: Props) {
       case "nosort":
         setSortByDate("asc");
         const ascending = jokes.sort(
-          (a, b) =>
-            new Date(a.CreatedAt).valueOf() - new Date(b.CreatedAt).valueOf()
+          (a, b) =>{
+            return moment(a.CreatedAt).valueOf() - moment(b.CreatedAt).valueOf()
+          }
         );
         setJokes(ascending);
         break;
       case "asc":
         setSortByDate("desc");
         const descending = jokes.sort(
-          (a, b) =>
-            new Date(b.CreatedAt).valueOf() - new Date(a.CreatedAt).valueOf()
+          (a, b) => moment(b.CreatedAt).valueOf() - moment(a.CreatedAt).valueOf()
         );
         setJokes(descending);
         break;
