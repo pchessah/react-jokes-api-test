@@ -12,7 +12,7 @@ interface Props {
 function JokesForm(props: Props) {
   const { joke, isUpdateMode } = props;
   const navigate = useNavigate();
-  const [jokeDetails, setJokeDetails] = useState<IJoke>({} as IJoke);
+  const [jokeDetails, setJokeDetails] = useState<IJoke>({Author: "", Title: "", Body: "", Views: 0} as IJoke);
   const [isSaving, setisSaving] = useState(false);
 
   const setJokeTitle = (title: string) => {
@@ -63,11 +63,15 @@ function JokesForm(props: Props) {
     });
   };
 
+  const cancel = () => {
+    navigate(`/all-jokes`);
+  }
+
   const checkFormIsDisabled = () => {
     let isValid =
-      !!jokeDetails?.Author &&
-      !!jokeDetails?.Body &&
-      !!jokeDetails?.Title &&
+     ( !!jokeDetails?.Author  && !!jokeDetails?.Author?.length) &&
+      (!!jokeDetails?.Body && !!jokeDetails?.Body?.length) &&
+      (!!jokeDetails?.Title && !!jokeDetails?.Title?.length) &&
       !!jokeDetails?.Views;
     return !isValid;
   };
@@ -78,11 +82,11 @@ function JokesForm(props: Props) {
     } else {
       const newJokeDetails: IJoke = {
         id: new Date().getTime(),
-        Author: null as any,
-        Title: null as any,
-        Body: null as any,
+        Author: "",
+        Title: "",
+        Body: "",
         CreatedAt: new Date().getTime(),
-        Views: null as any
+        Views: 0
       };
       setJokeDetails(newJokeDetails);
     }
@@ -135,7 +139,7 @@ function JokesForm(props: Props) {
           </section>
 
           <section className="action-row">
-            <button className="button-45" role="button">
+            <button  onClick={cancel} className="button-45" role="button">
               Cancel
             </button>
 

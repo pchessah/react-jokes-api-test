@@ -14,7 +14,6 @@ function Home(props: Props) {
       {isAuthenticated ? (
         <div className="container">
           <>
-            <h1>Ready to laugh? 😆</h1>
             <section className="jokes-table-container">
               <JokesTable />
             </section>

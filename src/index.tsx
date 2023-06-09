@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 import './index.css';
 
 import reportWebVitals from './reportWebVitals';
-import Home from './pages/Home';
-import SingleJoke from './pages/SingleJoke';
-import Login from './pages/Login';
+import App from './pages/App';
 
 export const useCheckAuthorization = (condition: boolean) => {
   const [isConditionTrue, setIsConditionTrue] = useState(false);
@@ -22,34 +16,15 @@ export const useCheckAuthorization = (condition: boolean) => {
   return isConditionTrue;
 };
 
-const router = createBrowserRouter([
-  {
-    path: "all-jokes",
-    element: <Home />,
-  },
-  {
-    path:"joke/:jokeId",
-    element: <SingleJoke />
-  },
-  {
-    path:"joke/create",
-    element: <SingleJoke />
-  },
-  {
-    path: "/",
-    element: <Login />
-  }
-
-
-]);
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+  <App/>
   </React.StrictMode>
 );
 
